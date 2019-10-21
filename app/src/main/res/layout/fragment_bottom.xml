@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"--><!--xmlns:tools="http://schemas.android.com/tools"--><!--android:layout_width="match_parent"--><!--android:layout_height="match_parent"--><!--android:orientation="vertical">-->
+
+<!--<View--><!--android:id="@+id/view_holder"--><!--android:layout_width="match_parent"--><!--android:layout_height="0dp"--><!--android:layout_weight="1"--><!--android:background="@android:color/holo_orange_dark" />-->
+
+<!--<FrameLayout--><!--android:id="@+id/fragment_container"--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content"--><!--android:layout_gravity="bottom"--><!--android:background="@android:color/holo_blue_bright"--><!--android:gravity="bottom"--><!--tools:context=".activity.BottomContainerDialogFragment" />--><!--</LinearLayout>-->
+
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:tools="http://schemas.android.com/tools"-->
+
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:orientation="vertical"-->
+    <!--android:layout_gravity="bottom"-->
+    <!--android:gravity="bottom"-->
+    <!--tools:context=".activity.BottomContainerDialogFragment">-->
+
+    <!--<LinearLayout-->
+        <!--android:background="@drawable/topic_lt_rt_25dp_solid_000000"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="56dp">-->
+        <!--<TextView-->
+            <!--android:layout_marginStart="16dp"-->
+            <!--android:textColor="#30000000"-->
+            <!--android:textSize="20sp"-->
+            <!--android:text="X"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="16dp" />-->
+
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginStart="32dp"-->
+            <!--android:gravity="center"-->
+            <!--android:text="选择声音"-->
+            <!--android:textColor="@android:color/black"-->
+            <!--android:textSize="18sp"-->
+            <!--android:layout_marginLeft="32dp" />-->
+    <!--</LinearLayout>-->
+
+<FrameLayout
+    android:id="@+id/fragment_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="bottom"
+    android:gravity="bottom"
+    xmlns:android="http://schemas.android.com/apk/res/android" />
+<!--</LinearLayout>-->

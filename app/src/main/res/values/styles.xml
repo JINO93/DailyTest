@@ -1,0 +1,59 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="BottomDialogTheme" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@style/share_popup_window_animation</item>
+    </style>
+
+    <style name="share_popup_window_animation" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/enter_bottomtotop</item>
+        <item name="android:windowExitAnimation">@anim/exit_toptobottom</item>
+    </style>
+
+    <style name="inputDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@android:color/transparent</item><!-- 边框 -->
+        <item name="android:windowIsFloating">true</item><!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsTranslucent">false</item><!-- 半透明 -->
+        <item name="android:windowNoTitle">true</item><!-- 无标题 -->
+        <item name="android:windowBackground">@android:color/transparent</item><!-- 自己想要的背景 -->
+        <item name="android:backgroundDimEnabled">true</item><!-- 模糊 -->
+        <item name="android:windowSoftInputMode">stateAlwaysVisible</item><!--显示软件盘-->
+    </style>
+
+    <style name="TransparentDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowCloseOnTouchOutside">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <declare-styleable name="RoundImageView">
+        <attr name="LeftTopX" format="dimension|integer" />
+        <attr name="LeftTopY" format="dimension|integer" />
+        <attr name="RightTopX" format="dimension|integer" />
+        <attr name="RightTopY" format="dimension|integer" />
+        <attr name="LeftBottomX" format="dimension|integer" />
+        <attr name="LeftBottomY" format="dimension|integer" />
+        <attr name="RightBottomX" format="dimension|integer" />
+        <attr name="RightBottomY" format="dimension|integer" />
+        <attr name="strokeWidth" format="dimension" />
+        <attr name="strokeColor" format="dimension" />
+    </declare-styleable>
+</resources>

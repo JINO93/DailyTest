@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="40dp">
+
+    <LinearLayout
+        android:id="@+id/v_coin"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_margin="5dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp">
+
+        <TextView
+            android:id="@+id/tv_coin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="15325.3"
+            android:textColor="@android:color/white"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:id="@+id/layout_right_icon"
+            android:orientation="horizontal"
+            android:layout_width="34dp"
+            android:layout_height="24dp">
+
+            <View
+                android:id="@+id/v_line"
+                android:layout_width="1dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="7.5dp"
+                android:layout_marginLeft="7.5dp"
+                android:layout_marginEnd="3.5dp"
+                android:layout_marginRight="3.5dp"
+                android:background="#14ffffff" />
+
+            <ImageView
+                android:id="@+id/iv_rank"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_buy_rank" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</merge>
