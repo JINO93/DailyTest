@@ -166,4 +166,11 @@ public class ExampleUnitTest {
         consumerList.add(new Button(null));
         Object object = consumerList.get(0);
     }
+
+    @Test
+    public void testRegex(){
+        String txt = "ehsi sis \n anan";
+        System.out.println(txt);
+        System.out.println(txt.replaceAll("\\s",""));
+    }
 }

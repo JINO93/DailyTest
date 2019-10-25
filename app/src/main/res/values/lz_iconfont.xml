@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lz_ic_gift"></string>
+    <string name="lz_ic_msg"></string>
+    <string name="lz_ic_draft"></string>
+    <string name="lz_ic_wallet"></string>
+    <string name="lz_ic_group"></string>
+    <string name="lz_ic_lab"></string>
+    <string name="lz_ic_like"></string>
+    <string name="lz_ic_playlist"></string>
+    <string name="lz_ic_jockey_center"></string>
+    <string name="lz_ic_help"></string>
+    <string name="lz_ic_setting"></string>
+    <string name="lz_ic_play_voice"></string>
+    <string name="lz_ic_delete"></string>
+    <string name="lz_ic_my_level"></string>
+    <string name="lz_ic_pause_voice"></string>
+    <string name="lz_ic_play_next"></string>
+    <string name="lz_ic_arrow_right"></string>
+    <string name="lz_ic_live"></string>
+
+    <string name="lz_ic_loc"></string>
+    <string name="lz_ic_laud"></string>
+    <string name="lz_ic_unlaud"></string>
+    <string name="lz_ic_comment"></string>
+    <string name="lz_ic_forward"></string>
+
+    <string name="lz_ic_envelope"></string>
+    <string name="lz_ic_checkbox_round_checked"></string>
+    <string name="lz_ic_checkbox_round_uncheck"></string>
+    <!--<string name="lz_ic_arrow_right"></string>-->
+    <string name="lz_ic_small_play"></string>
+    <string name="lz_ic_warn"></string>
+
+    <string name="lz_ic_down_arrow"></string>
+    <string name="lz_ic_share"></string>
+    <string name="lz_ic_more"></string>
+    <string name="lz_ic_add"></string>
+    <string name="lz_ic_like_1"></string>
+    <string name="lz_ic_download"></string>
+    <string name="lz_ic_alarm"></string>
+    <string name="lz_ic_common_1"></string>
+    <string name="lz_ic_play_speed_0_5_x"></string>
+
+    <string name="lz_ic_pre_voice"></string>
+    <string name="lz_ic_next_voice"></string>
+    <string name="lz_ic_voice_list"></string>
+    <string name="lz_ic_user"></string>
+    <string name="lz_ic_time"></string>
+
+    <string name="lz_ic_player_gift"></string>
+    <string name="lz_ic_add_to_playlist"></string>
+    <string name="lz_ic_history"></string>
+    <string name="lz_ic_voice_origin"></string>
+    <string name="lz_ic_voice_quality"></string>
+    <string name="lz_ic_report"></string>
+    <string name="lz_ic_edit"></string>
+    <string name="lz_ic_contribute"></string>
+
+    <string name="lz_ic_play_order_sequence"></string>
+    <string name="lz_ic_play_order_random"></string>
+    <string name="lz_ic_play_order_single_cycle"></string>
+    <string name="lz_ic_play_order_reverse"></string>
+    <string name="lz_ic_no_volume"></string>
+    <string name="lz_ic_low_volume"></string>
+    <string name="lz_ic_loud_volume"></string>
+
+    <string name="lz_ic_voice_speed_control"></string>
+    <string name="lz_ic_voice_speed_0_5x"></string>
+    <string name="lz_ic_voice_speed_1_0x"></string>
+    <string name="lz_ic_voice_speed_1_25x"></string>
+    <string name="lz_ic_voice_speed_1_5x"></string>
+    <string name="lz_ic_voice_speed_2_0x"></string>
+
+    <string name="lz_ic_voice_circle_speed_0_5x"></string>
+    <string name="lz_ic_voice_circle_speed_1_0x"></string>
+    <string name="lz_ic_voice_circle_speed_1_25x"></string>
+    <string name="lz_ic_voice_circle_speed_1_5x"></string>
+    <string name="lz_ic_voice_circle_speed_2_0x"></string>
+
+    <string name="lz_ic_forward_15s"></string>
+    <string name="lz_ic_backward_15s"></string>
+    <string name="lz_ic_download_success"></string>
+
+    <string name="lz_ic_banned"></string>
+    <string name="lz_ic_comment_zero"></string>
+    <string name="lz_ic_downloading"></string>
+
+    <string name="lz_ic_hint"></string>
+    <string name="lz_ic_close"></string>
+    <string name="lz_push_dialog_close"></string>
+    <string name="lz_ic_general_comment_head_postcard_name"></string>
+    <string name="lz_ic_general_comment_head_right_push"></string>
+    <string name="lz_ic_phone_edit"></string>
+    <string name="lz_ic_pwd_visible"></string>
+    <string name="lz_ic_pwd_invisible"></string>
+    <string name="lz_ic_camera"></string>
+    <string name="lz_ic_tick"></string>
+    <string name="lz_ic_mail"></string>
+
+    <string name="lz_ic_topic_contribute_close"></string>
+    <string name="lz_ic_reset"></string>
+    <string name="lz_ic_search"></string>
+    <string name="lz_ic_switch"></string>
+    <string name="lz_ic_left_arrow"></string>
+    <string name="lz_ic_topic_contribute_input_close"></string>
+
+    <string name="lz_ic_plane"></string>
+    <string name="lz_ic_comment_2"></string>
+    <string name="lz_ic_top"></string>
+    <string name="lz_ic_collect_solid"></string>
+    <string name="lz_ic_collect_border"></string>
+    <string name="lz_ic_quotation_mark"></string>
+
+    <string name="lz_ic_music"></string>
+    <string name="lz_ic_record"></string>
+
+    <string name="lz_ic_topic_tag_title_selector"></string>
+    <string name="lz_ic_topic_tag_prefix"></string>
+    <string name="lz_ic_topic_tag_views"></string>
+    <string name="lz_ic_topic_tag_registers"></string>
+    <string name="lz_ic_main_private_radio"></string>
+</resources>

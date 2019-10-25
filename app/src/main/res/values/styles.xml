@@ -56,4 +56,12 @@
         <attr name="strokeWidth" format="dimension" />
         <attr name="strokeColor" format="dimension" />
     </declare-styleable>
+
+    <declare-styleable name="IconFontTextView">
+        <attr name="if_strokeWidth" format="dimension" />
+        <attr name="if_strokeColor" format="color" />
+        <attr name="if_fillColor" format="color" />
+        <attr name="if_enablePressEffect" format="boolean" />
+        <attr name="ttf_version" format="integer" />
+    </declare-styleable>
 </resources>

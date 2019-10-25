@@ -185,7 +185,7 @@
             android:layout_marginLeft="12dp" />
 
         <TextView
-            android:id="@+id/tv_play_count_ic"
+            android:id="@+id/tv_reply_count_ic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -198,30 +198,6 @@
             android:layout_marginLeft="16dp" />
 
         <TextView
-            android:id="@+id/tv_play_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:text="123"
-            android:textColor="#30000000"
-            android:textSize="10sp"
-            app:layout_constraintBottom_toBottomOf="@id/tv_play_count_ic"
-            app:layout_constraintLeft_toRightOf="@id/tv_play_count_ic"
-            android:layout_marginLeft="2dp" />
-
-        <TextView
-            android:id="@+id/tv_reply_ic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="X"
-            android:textColor="#30000000"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@id/tv_play_count_ic"
-            app:layout_constraintLeft_toRightOf="@id/tv_play_count"
-            android:layout_marginLeft="16dp" />
-
-        <TextView
             android:id="@+id/tv_reply_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -229,8 +205,32 @@
             android:text="123"
             android:textColor="#30000000"
             android:textSize="10sp"
-            app:layout_constraintBottom_toBottomOf="@id/tv_play_count_ic"
-            app:layout_constraintLeft_toRightOf="@id/tv_reply_ic"
+            app:layout_constraintBottom_toBottomOf="@id/tv_reply_count_ic"
+            app:layout_constraintLeft_toRightOf="@id/tv_reply_count_ic"
+            android:layout_marginLeft="2dp" />
+
+        <TextView
+            android:id="@+id/tv_like_ic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="X"
+            android:textColor="#30000000"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_reply_count_ic"
+            app:layout_constraintLeft_toRightOf="@id/tv_reply_count"
+            android:layout_marginLeft="16dp" />
+
+        <TextView
+            android:id="@+id/tv_like_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:text="123"
+            android:textColor="#30000000"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_reply_count_ic"
+            app:layout_constraintLeft_toRightOf="@id/tv_like_ic"
             android:layout_marginLeft="2dp" />
 
         <LinearLayout
