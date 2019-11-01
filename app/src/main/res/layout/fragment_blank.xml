@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:layout_gravity="bottom"
     android:background="@android:color/white"
     tools:context=".activity.BlankFragment">
@@ -16,10 +17,31 @@
         android:textSize="20sp" />
 
     <EditText
+        android:layout_alignParentTop="true"
         android:focusedByDefault="false"
         android:id="@+id/ed_test"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+
+
+    <RelativeLayout
+        android:layout_below="@+id/ed_test"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_alignParentStart="true"
+            android:id="@+id/rv1"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_alignParentEnd="true"
+            android:id="@+id/rv2"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"/>
+    </RelativeLayout>
 
     <Button
         android:id="@+id/btn_back"
@@ -28,4 +50,4 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:text="Back" />
-</FrameLayout>
+</RelativeLayout>

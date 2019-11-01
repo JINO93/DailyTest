@@ -3,15 +3,26 @@ package com.example.administrator.test.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetDialogFragment;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.example.administrator.test.MyApplication;
 import com.example.administrator.test.R;
+import com.example.administrator.test.view.BottomContainerSheetBehavior;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,29 +33,10 @@ public class BlankFragment extends Fragment {
 
     private static int count = 0;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
     private int mContent;
     boolean isFirstShow = true;
 
 
-    public BlankFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment BlankFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static BlankFragment newInstance() {
         BlankFragment fragment = new BlankFragment();
         Bundle args = new Bundle();
@@ -56,9 +48,6 @@ public class BlankFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-        }
         mContent = count++;
     }
 
@@ -79,13 +68,7 @@ public class BlankFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 BlankFragment blankFragment = BlankFragment.newInstance();
-//                FragmentManager fragmentManager = getFragmentManager();
-//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//                fragmentTransaction.addToBackStack(null);
-////                fragmentTransaction.setCustomAnimations(R.anim.slide_right_in, R.anim.slide_right_out);
-//                fragmentTransaction.replace(R.id.fragment_container, blankFragment);
-//                fragmentTransaction.commit();
-                BottomContainerDialogFragment.add(BlankFragment.this,new ContentFragment());
+                BottomContainerDialogFragment.add(BlankFragment.this, new ContentFragment());
             }
         });
         view.findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
@@ -97,7 +80,51 @@ public class BlankFragment extends Fragment {
                 BottomContainerDialogFragment.back(BlankFragment.this);
             }
         });
-//        view.getLayoutParams().height = 1000 - mContent * 50;
+        RecyclerView rv1 = view.findViewById(R.id.rv1);
+        RecyclerView rv2 = view.findViewById(R.id.rv2);
+
+        initRecycler(rv1);
+        initRecycler(rv2);
+    }
+    RecyclerView.OnItemTouchListener onItemTouchListener = new RecyclerView.OnItemTouchListener() {
+        @Override
+        public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+            setScrollable(null, rv);
+            return false;
+        }
+
+        @Override
+        public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+
+        }
+
+        @Override
+        public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+        }
+    };
+
+    private void setScrollable(View bottomSheet, RecyclerView recyclerView){
+        if (getParentFragment() instanceof BottomSheetDialogFragment) {
+            Window window = ((BottomSheetDialogFragment) getParentFragment()).getDialog().getWindow();
+            bottomSheet = window.findViewById(android.support.design.R.id.design_bottom_sheet);
+        }
+        if (bottomSheet == null) {
+            return;
+        }
+        ViewGroup.LayoutParams params = bottomSheet.getLayoutParams();
+        if (params instanceof CoordinatorLayout.LayoutParams) {
+            CoordinatorLayout.LayoutParams coordinatorLayoutParams = (CoordinatorLayout.LayoutParams) params;
+            CoordinatorLayout.Behavior behavior = coordinatorLayoutParams.getBehavior();
+            if (behavior != null && behavior instanceof BottomContainerSheetBehavior)
+                ((BottomContainerSheetBehavior)behavior).setNestedScrollingChildRef(recyclerView);
+        }
+    }
+
+    private void initRecycler(RecyclerView rv) {
+        rv.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        rv.setAdapter(new MyAdapter());
+        rv.addOnItemTouchListener(onItemTouchListener);
     }
 
     @Override
@@ -110,6 +137,66 @@ public class BlankFragment extends Fragment {
             return AnimationUtils.loadAnimation(getActivity(), R.anim.slide_left_in);
         } else {
             return AnimationUtils.loadAnimation(getActivity(), R.anim.slide_left_out);
+        }
+    }
+
+    class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
+        private int[] imgs = {
+                R.mipmap.ic_launcher,
+                R.mipmap.ic_launcher,
+                R.mipmap.ic_launcher,
+                R.mipmap.ic_launcher,
+                R.mipmap.ic_launcher,
+                R.mipmap.ic_launcher,
+                R.mipmap.ic_launcher,
+
+        };
+        String[] titles = {"Acknowl", "Belief", "Confidence", "Dreaming", "Happiness", "Confidence"};
+
+        @Override
+        public MyAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(getContext()).inflate(R.layout.item_topic_read_card, parent, false);
+            return new MyAdapter.ViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(final MyAdapter.ViewHolder holder, final int position) {
+            Glide.with(MyApplication.getContext()).load(imgs[position % imgs.length]).into(holder.imgBg);
+            holder.tvTitle.setText(titles[position % titles.length]);
+            holder.imgBg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getActivity(),titles[position % titles.length] + " click",Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
+        @Override
+        public int getItemCount() {
+            return 50;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        public class ViewHolder extends RecyclerView.ViewHolder {
+            ImageView imgBg;
+            TextView tvTitle;
+            TextView tvBottom;
+
+            public ViewHolder(View itemView) {
+                super(itemView);
+                imgBg = itemView.findViewById(R.id.iv_cover);
+                tvTitle = itemView.findViewById(R.id.tv_card_title);
+            }
         }
     }
 }

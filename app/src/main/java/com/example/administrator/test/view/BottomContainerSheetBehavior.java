@@ -8,7 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.administrator.test.R;
-import com.example.administrator.test.util.LogUtil;
+
+import java.lang.ref.WeakReference;
+import java.lang.reflect.Field;
 
 /**
  * @Author: JINO
@@ -52,5 +54,17 @@ public class BottomContainerSheetBehavior extends BottomSheetBehavior {
         mChangeImageBackgroundRect.bottom = mChangeImageBackgroundRect.bottom + location[1];
         return mChangeImageBackgroundRect.contains(x, y);
 
+    }
+
+    public void setNestedScrollingChildRef(View v) {
+        try {
+            Field mNestedScrollingChildRefField = BottomSheetBehavior.class.getDeclaredField("mNestedScrollingChildRef");
+            mNestedScrollingChildRefField.setAccessible(true);
+            mNestedScrollingChildRefField.set(this,new WeakReference<View>(v));
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
 }
