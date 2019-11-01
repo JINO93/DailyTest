@@ -191,7 +191,7 @@ public class CardIndicator extends View {
     public void attachToRecyelerView(RecyclerView recyclerView) {
         mRecyclerView = recyclerView;
         updateDotCount();
-        mRecyclerView.addOnScrollListener(new InnerRecyclerViewScrollListener());
+//        mRecyclerView.addOnScrollListener(new InnerRecyclerViewScrollListener());
         mRecyclerView.getAdapter().registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
             public void onChanged() {

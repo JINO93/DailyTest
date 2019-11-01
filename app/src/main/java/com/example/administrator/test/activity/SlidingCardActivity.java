@@ -1,13 +1,13 @@
 package com.example.administrator.test.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -18,7 +18,6 @@ import com.example.administrator.test.util.ViewUtils;
 import com.example.administrator.test.view.CardIndicator;
 import com.example.administrator.test.view.layoutManager.CardStackLayoutManager;
 
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +27,7 @@ public class SlidingCardActivity extends AppCompatActivity {
     private CardIndicator cardIndicator;
     private MyAdapter mAdapter;
     private List<CardData> cardDataList = new ArrayList<>();
+    private int curPos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +35,11 @@ public class SlidingCardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sliding_card);
         rvCard = findViewById(R.id.rv_card);
         mAdapter = new MyAdapter();
+        mAdapter.setHasStableIds(true);
         rvCard.setAdapter(mAdapter);
-        rvCard.setLayoutManager(new CardStackLayoutManager(0.8f, true, ViewUtils.dipToPx(this, 20), 3));
+        CardStackLayoutManager cardStackLayoutManager = new CardStackLayoutManager(0.8f, true,
+                ViewUtils.dipToPx(this, 20), 3);
+        rvCard.setLayoutManager(cardStackLayoutManager);
         rvCard.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -81,6 +84,14 @@ public class SlidingCardActivity extends AppCompatActivity {
         });
         cardIndicator = findViewById(R.id.card_indicator);
         cardIndicator.attachToRecyelerView(rvCard);
+
+        cardStackLayoutManager.setOnStackChangeListener(new CardStackLayoutManager.OnStackChangeListener() {
+            @Override
+            public void onTopStackChange(int oldPosition, int newPostion) {
+                cardIndicator.slide(newPostion - oldPosition > 0);
+                curPos = newPostion;
+            }
+        });
 //        cardIndicator.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -91,13 +102,15 @@ public class SlidingCardActivity extends AppCompatActivity {
         findViewById(R.id.btn_left).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cardIndicator.slide(false);
+//                cardIndicator.slide(false);
+                rvCard.scrollToPosition(--curPos);
             }
         });
         findViewById(R.id.btn_right).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cardIndicator.slide(true);
+//                cardIndicator.slide(true);
+                rvCard.scrollToPosition(5);
             }
         });
 
@@ -158,6 +171,11 @@ public class SlidingCardActivity extends AppCompatActivity {
         @Override
         public int getItemCount() {
             return cardDataList.size();
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {

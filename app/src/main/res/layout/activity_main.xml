@@ -148,6 +148,22 @@
                 android:onClick="showBottomShapeFragment"
                 android:text="showBottomShapeFragment" />
 
+            <LinearLayout
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <View
+                    android:background="@drawable/topic_22dp_solid_fe5353"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"/>
+
+                <View
+                    android:background="@drawable/view_bottom_triangle"
+                    android:layout_width="12dp"
+                    android:layout_height="5dp"/>
+            </LinearLayout>
+
         </LinearLayout>
 
         <!--<FrameLayout-->

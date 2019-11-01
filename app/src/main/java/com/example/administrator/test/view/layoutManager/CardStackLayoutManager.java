@@ -18,6 +18,7 @@ import com.example.administrator.test.util.LogUtil;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 
 /**
@@ -45,6 +46,8 @@ public class CardStackLayoutManager extends RecyclerView.LayoutManager {
     private RecyclerView.Recycler recycler;
     private Method sSetScrollState;
     private RecyclerView mRV;
+    private int lastTopItemPos;
+    private OnStackChangeListener mListener;
 
     /**
      * Sets true to scroll layout in left direction.
@@ -168,7 +171,7 @@ public class CardStackLayoutManager extends RecyclerView.LayoutManager {
             @Override
             public void onAnimationEnd(Animator animation) {
                 lastAnimateValue = 0;
-                LogUtil.w("on Anim end.");
+//                LogUtil.w("on Anim end.");
                 mRV.onScrollStateChanged(RecyclerView.SCROLL_STATE_IDLE);
             }
 
@@ -204,7 +207,7 @@ public class CardStackLayoutManager extends RecyclerView.LayoutManager {
     }
 
     public int getTopItemPosition(){
-        LogUtil.w("position:"+position());
+//        LogUtil.w("position:"+position());
         return (int) (mItemCount - Math.floor(position()));
     }
 
@@ -235,6 +238,11 @@ public class CardStackLayoutManager extends RecyclerView.LayoutManager {
 
     public void fill(RecyclerView.Recycler recycler) {
         int bottomItemPosition = (int) Math.floor(position());
+        int topItemPos = mItemCount - (int) position();
+        if (topItemPos != lastTopItemPos) {
+            mListener.onTopStackChange(lastTopItemPos,topItemPos);
+            lastTopItemPos = topItemPos;
+        }
         final int space = getHorizontalSpace(); //展示宽度
         final int bottomItemVisibleSize = isReverseDirection ?
                 ((mItemCount - 1) * mItemViewWidth + mScrollOffset) % mItemViewWidth :
@@ -246,8 +254,11 @@ public class CardStackLayoutManager extends RecyclerView.LayoutManager {
         final int baseOffsetSpace = mItemMargin;
 
         ArrayList<ItemViewInfo> layoutInfos = new ArrayList<>();
-        int lastItemPos = bottomItemPosition - 1 - mItemStackCount;
-        for (int i = bottomItemPosition - 1, j = 1;
+        int lastItemPos = bottomItemPosition - mItemStackCount;
+        if(lastItemPos < 0){
+            lastItemPos = 0;
+        }
+        for (int i = bottomItemPosition, j = 1;
              i > lastItemPos; i--, j++) {
             double maxOffset = baseOffsetSpace / 2f * Math.pow(mScale, j);
 
@@ -289,14 +300,16 @@ public class CardStackLayoutManager extends RecyclerView.LayoutManager {
         }
 
         int layoutCount = layoutInfos.size();
-//        Log.d("JINO","layoutInfos size="+layoutCount);
-//        for (ItemViewInfo layoutInfo : layoutInfos) {
-//            Log.i("JINO","layoutInfo:"+layoutInfo);
-//        }
+        Log.d("JINO","layoutInfos size="+layoutCount);
+        for (ItemViewInfo layoutInfo : layoutInfos) {
+            Log.i("JINO","layoutInfo:"+layoutInfo);
+        }
 
         final int startPos = bottomItemPosition - (layoutCount - 1);
         final int endPos = bottomItemPosition;
         final int childCount = getChildCount();
+        LogUtil.w(MessageFormat.format("layoutCount:{0} --  startPos:{1}  --- endPos:{2} -- childCount:{3}", layoutCount, startPos, endPos, childCount));
+
         for (int i = childCount - 1; i >= 0; i--) {
             View childView = getChildAt(i);
             int pos = convert2LayoutPosition(getPosition(childView));
@@ -308,7 +321,7 @@ public class CardStackLayoutManager extends RecyclerView.LayoutManager {
 
         for (int i = 0; i < layoutCount; i++) {
             int position = convert2AdapterPosition(startPos + i);
-            if(position < 0 || mItemCount - 1 <= position){
+            if(position < 0 || mItemCount - 1 < position){
                 continue;
             }
             fillChild(recycler.getViewForPosition(position), layoutInfos.get(i));
@@ -374,10 +387,12 @@ public class CardStackLayoutManager extends RecyclerView.LayoutManager {
 
     @Override
     public void scrollToPosition(int position) {
-        if (position > 0 && position < mItemCount) {
-            mScrollOffset = mItemViewWidth * (convert2LayoutPosition(position) + 1);
-            requestLayout();
+        if (position < 0 || position >= mItemCount) {
+            return;
         }
+//        int tempOffset = mItemViewWidth * (convert2LayoutPosition(position) + 1);
+        int dis = isReverseDirection ? -(position - lastTopItemPos) * mItemViewWidth : (position - lastTopItemPos) * mItemViewWidth;
+        brewAndStartAnimator(computeSettleDuration(Math.abs(dis),0),dis);
     }
 
     @Override
@@ -399,6 +414,10 @@ public class CardStackLayoutManager extends RecyclerView.LayoutManager {
 
     public int getHorizontalSpace() {
         return getWidth() - getPaddingLeft() - getPaddingRight();
+    }
+
+    public void setOnStackChangeListener(OnStackChangeListener stackChangeListener) {
+        this.mListener = stackChangeListener;
     }
 
     private static class ItemViewInfo {
@@ -452,5 +471,24 @@ public class CardStackLayoutManager extends RecyclerView.LayoutManager {
             this.mTop = mTop;
         }
 
+        @Override
+        public String toString() {
+            return "ItemViewInfo{" +
+                    "mScaleXY=" + mScaleXY +
+                    ", mLayoutPercent=" + mLayoutPercent +
+                    ", mPositionOffset=" + mPositionOffset +
+                    ", mTop=" + mTop +
+                    ", mIsBottom=" + mIsBottom +
+                    '}';
+        }
+    }
+
+    public interface OnStackChangeListener{
+        /**
+         * 堆最上面卡片的变化回调
+         * @param oldPosition 变动前的卡片下标
+         * @param newPostion 变动后的卡片下标
+         */
+        void onTopStackChange(int oldPosition, int newPostion);
     }
 }
