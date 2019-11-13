@@ -2,6 +2,7 @@ package com.example.administrator.test.activity;
 
 import android.Manifest;
 import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -9,6 +10,9 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.LinearGradient;
+import android.graphics.Shader;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -17,6 +21,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.ListPopupWindow;
+import android.text.TextPaint;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -49,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
     private int count = 0;
     private ImageView ivDisplay;
     private ViewGroup btnContainer;
+    private TextView tvPaint;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +75,43 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(SlidingCardActivity.class);
+            }
+        });
+        addBtn("浮动动画", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ObjectAnimator flowAnim = ObjectAnimator.ofFloat(v, View.TRANSLATION_Y, -5, 5)
+                        .setDuration(500);
+                flowAnim.setRepeatMode(ValueAnimator.REVERSE);
+                flowAnim.setRepeatCount(ValueAnimator.INFINITE);
+                flowAnim.start();
+            }
+        });
+
+        addBtn("Flutter Test",v -> startActivity(FlutterTestActivity.class));
+
+        changeTextColor();
+    }
+
+    private void changeTextColor() {
+        tvPaint = findViewById(R.id.tv_paint);
+        TextPaint paint = tvPaint.getPaint();
+        LinearGradient linearGradient = new LinearGradient(0, 0, paint.measureText(tvPaint.getText().toString()), 0,
+//                new int[]{Color.parseColor("#c9944e"),
+//                        Color.parseColor("#efb15f"),
+//                        Color.parseColor("#c7924d")},
+                        new int[]{Color.RED,
+                                Color.GREEN,
+                                Color.RED},
+//                        new float[]{0,0.3f,1f},
+                new float[]{0,0.5f,1f},
+                Shader.TileMode.CLAMP);
+        paint.setShader(linearGradient);
+//        tvPaint.invalidate();
+        tvPaint.post(new Runnable() {
+            @Override
+            public void run() {
+
             }
         });
     }

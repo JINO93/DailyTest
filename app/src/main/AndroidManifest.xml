@@ -17,7 +17,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity.SlidingCardActivity"></activity>
+        <activity android:name=".activity.FlutterTestActivity"></activity>
+        <activity android:name=".activity.SlidingCardActivity" />
         <activity android:name=".activity.WebViewTestActivity" />
         <activity
             android:name=".activity.MainActivity"
@@ -35,7 +36,21 @@
                 <action android:name="com.jino.test" />
             </intent-filter>
         </receiver>
+        <receiver android:name=".view.TimeWidget">
 
+            <!-- android:permission="com.android.launcher.permission.INSTALL_SHORTCUT" -->
+            <intent-filter>
+
+                <!-- <action android:name="com.terry.action.widget.click" /> -->
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_provider" />
+        </receiver>
+
+        <service android:name=".service.TimeUpdateService" />
         <service
             android:name=".service.ForeGroundService"
             android:enabled="true"
