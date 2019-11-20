@@ -1,4 +1,13 @@
 apply plugin: 'com.android.application'
+
+def propFile = file('../signing.properties')
+def props = new Properties()
+if (!propFile.exists() || !propFile.canRead()) {
+    println 'signing.properties are not found!'
+}else{
+    props.load(new FileInputStream(propFile))
+}
+
 android {
     compileSdkVersion 26
     defaultConfig {
@@ -11,9 +20,25 @@ android {
 
         vectorDrawables.useSupportLibrary = true
     }
+
+    signingConfigs{
+        release{
+            storeFile file(props['STORE_FILE'])
+            storePassword props['STORE_PASSWORD']
+            keyAlias props['KEY_ALIAS']
+            keyPassword props['KEY_PASSWORD']
+        }
+    }
+
     buildTypes {
         release {
+            minifyEnabled true
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
             minifyEnabled false
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -47,7 +72,7 @@ repositories {
 dependencies {
 //    implementation project(':flutter')
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation(name: 'push-2.5.2.300', ext: 'aar')
+//    implementation(name: 'push-2.5.2.300', ext: 'aar')
     implementation('com.android.support:appcompat-v7:26.1.0') {
         exclude group: 'com.android.support', module: 'support-annotations'
     }
