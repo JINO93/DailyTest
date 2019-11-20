@@ -18,4 +18,8 @@ public class LogUtil {
     public static void w(String content) {
         Log.w(TAG, content);
     }
+
+    public static void e(String content) {
+        Log.e(TAG, content);
+    }
 }

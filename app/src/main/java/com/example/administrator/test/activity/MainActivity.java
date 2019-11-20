@@ -43,6 +43,7 @@ import com.example.administrator.test.util.FragmentBackHelper;
 import com.example.administrator.test.util.LogUtil;
 import com.example.administrator.test.util.ViewUtils;
 import com.example.administrator.test.view.dialog.BuyVipSuccessDialog;
+import com.example.administrator.test.view.dialog.GuideRecordHintDialog;
 
 import java.util.ArrayList;
 
@@ -88,7 +89,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        addBtn("Flutter Test",v -> startActivity(FlutterTestActivity.class));
+        addBtn("Flutter Test", v -> startActivity(FlutterTestActivity.class));
+
+        addBtn("Guide Dialog", v -> new GuideRecordHintDialog(this).show());
 
         changeTextColor();
     }
@@ -96,18 +99,19 @@ public class MainActivity extends AppCompatActivity {
     private void changeTextColor() {
         tvPaint = findViewById(R.id.tv_paint);
         TextPaint paint = tvPaint.getPaint();
-        LinearGradient linearGradient = new LinearGradient(0, 0, paint.measureText(tvPaint.getText().toString()), 0,
-//                new int[]{Color.parseColor("#c9944e"),
-//                        Color.parseColor("#efb15f"),
-//                        Color.parseColor("#c7924d")},
-                        new int[]{Color.RED,
-                                Color.GREEN,
-                                Color.RED},
-//                        new float[]{0,0.3f,1f},
-                new float[]{0,0.5f,1f},
+        LinearGradient linearGradient = new LinearGradient(0, 0, 0, tvPaint.getMeasuredHeight() / 3,
+                //                new int[]{Color.parseColor("#c9944e"),
+                //                        Color.parseColor("#efb15f"),
+                //                        Color.parseColor("#c7924d")},
+                new int[]{Color.RED,
+                        Color.GREEN,
+//                                        Color.RED
+                },
+                //                        new float[]{0,0.3f,1f},
+                new float[]{0,/*0.5f,*/1f},
                 Shader.TileMode.CLAMP);
         paint.setShader(linearGradient);
-//        tvPaint.invalidate();
+        tvPaint.invalidate();
         tvPaint.post(new Runnable() {
             @Override
             public void run() {

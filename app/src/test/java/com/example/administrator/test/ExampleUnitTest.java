@@ -9,6 +9,7 @@ import org.junit.Test;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.PriorityQueue;
@@ -157,7 +158,7 @@ public class ExampleUnitTest {
 
 
     @Test
-    public void testPECS(){
+    public void testPECS() {
         List<? extends TextView> list = new ArrayList<>();
         TextView obj = list.get(0);
 
@@ -168,9 +169,30 @@ public class ExampleUnitTest {
     }
 
     @Test
-    public void testRegex(){
+    public void testRegex() {
         String txt = "ehsi sis \n anan";
         System.out.println(txt);
-        System.out.println(txt.replaceAll("\\s",""));
+        System.out.println(txt.replaceAll("\\s", ""));
+    }
+
+    @Test
+    public void testLengthOfLongestSubstring() {
+        String str = "abcadbcd";
+
+        HashMap<Character, Integer> map = new HashMap<>();
+        int start = -1;
+        int max = 0;
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
+            if (map.containsKey(c)) {
+                Integer temp = map.get(c);
+                if (temp >= start) {
+                    start = temp;
+                }
+            }
+            map.put(c, i);
+            max = Math.max(max, i - start);
+        }
+        System.out.println("max length:" + max);
     }
 }

@@ -164,6 +164,19 @@
                     android:layout_height="5dp"/>
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/tv_paint"
+                android:text="测试画笔渐变"
+                android:gravity="center"
+                android:padding="16dp"
+                android:textSize="18sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <com.example.administrator.test.view.OvalLine
+                android:layout_width="100dp"
+                android:layout_height="3dp"/>
+
         </LinearLayout>
 
         <!--<FrameLayout-->
