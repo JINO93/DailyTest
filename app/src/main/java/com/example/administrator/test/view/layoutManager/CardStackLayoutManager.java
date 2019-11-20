@@ -46,7 +46,7 @@ public class CardStackLayoutManager extends RecyclerView.LayoutManager {
     private RecyclerView.Recycler recycler;
     private Method sSetScrollState;
     private RecyclerView mRV;
-    private int lastTopItemPos;
+    private int lastTopItemPos = -1;
     private OnStackChangeListener mListener;
 
     /**

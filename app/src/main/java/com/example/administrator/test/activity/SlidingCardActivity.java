@@ -18,6 +18,7 @@ import com.example.administrator.test.util.ViewUtils;
 import com.example.administrator.test.view.CardIndicator;
 import com.example.administrator.test.view.layoutManager.CardStackLayoutManager;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,6 +89,10 @@ public class SlidingCardActivity extends AppCompatActivity {
         cardStackLayoutManager.setOnStackChangeListener(new CardStackLayoutManager.OnStackChangeListener() {
             @Override
             public void onTopStackChange(int oldPosition, int newPostion) {
+                LogUtil.w(MessageFormat.format("old:{0},newPos:{1}", oldPosition, newPostion));
+                if (curPos == newPostion) {
+                    return;
+                }
                 cardIndicator.slide(newPostion - oldPosition > 0);
                 curPos = newPostion;
             }

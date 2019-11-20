@@ -35,6 +35,7 @@ public class CardIndicator extends View {
     private float animatedValue = 0f;
     private boolean slideRight;
     private RecyclerView mRecyclerView;
+    private int drawDotCount;
 
     public CardIndicator(Context context) {
         this(context, null);
@@ -93,7 +94,7 @@ public class CardIndicator extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        int witdh = 2 * normalDotRadius * dotShowCount + dotMargin * (dotShowCount - 1);
+        int witdh = 2 * normalDotRadius * drawDotCount + dotMargin * (drawDotCount - 1);
         int height = 2 * normalDotRadius;
         setMeasuredDimension(witdh, height);
     }
@@ -101,7 +102,7 @@ public class CardIndicator extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        for (int i = -1; i <= dotShowCount; i++) {
+        for (int i = -1; i <= drawDotCount; i++) {
             dotPaint.setColor(i == selectDotIndex - startIndex ? Color.RED : Color.BLACK);
             int x = normalDotRadius + i * (2 * normalDotRadius + dotMargin) + (int) (animatedValue * (2 * normalDotRadius + dotMargin));
             int y = normalDotRadius;
@@ -203,7 +204,15 @@ public class CardIndicator extends View {
 
     public void updateDotCount(){
         dotCount = mRecyclerView.getAdapter().getItemCount();
-        invalidate();
+        if(dotCount < dotShowCount){
+            drawDotCount = dotCount;
+            endIndex = startIndex + drawDotCount - 1;
+            requestLayout();
+            return;
+        }
+        drawDotCount = dotShowCount;
+        endIndex = startIndex + drawDotCount - 1;
+        requestLayout();
     }
 
     private class InnerRecyclerViewScrollListener extends RecyclerView.OnScrollListener {
