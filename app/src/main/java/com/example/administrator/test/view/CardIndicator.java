@@ -52,27 +52,10 @@ public class CardIndicator extends View {
 
     private void init() {
         dotPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        valueAnimator = ValueAnimator.ofFloat(1).setDuration(200);
-        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                animatedValue = (float) animation.getAnimatedValue();
-                invalidate();
-            }
-        });
-        valueAnimator.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                super.onAnimationEnd(animation);
-                animatedValue = 0f;
-                updateDotIndex();
-                invalidate();
-            }
-        });
     }
 
-    private void updateDotIndex() {
-        if (slideRight) {
+    private void updateDotIndex(boolean isSlideRight) {
+        if (isSlideRight) {
             if (dotCount - 1 > selectDotIndex) {
                 selectDotIndex++;
             }
@@ -89,6 +72,7 @@ public class CardIndicator extends View {
                 startIndex--;
             }
         }
+        LogUtil.d(MessageFormat.format("updateDotIndex  startI:{0}  endI:{1}  selectI:{2}",startIndex,endIndex,selectDotIndex));
     }
 
     @Override
@@ -118,7 +102,7 @@ public class CardIndicator extends View {
 //            return normalDotRadius;
 //        }
         //当不处于滑动动画时，根据显示点的开始结束下标判断点的半径
-        if (!valueAnimator.isRunning()) {
+        if (valueAnimator == null || !valueAnimator.isRunning()) {
             if ((index == 0 && startIndex > 0) || (index == dotShowCount - 1 && endIndex + 1 < dotCount)) {
                 return smallDotRadius;
             }
@@ -142,7 +126,7 @@ public class CardIndicator extends View {
      * @param slideRight true : 向右滑动，false ：向左滑动
      */
     public void slide(boolean slideRight) {
-        this.slideRight = slideRight;
+        LogUtil.e("slide:" + slideRight);
         if (slideRight) {
             //当选中的点不在右边倒数第二个时，直接向右移动
             if (endIndex - 1 > selectDotIndex) {
@@ -155,8 +139,7 @@ public class CardIndicator extends View {
                     invalidate();
                 } else {
                     //播放右移动画
-                    valueAnimator.setFloatValues(0, -1);
-                    valueAnimator.start();
+                    startSlideAnim(slideRight);
                 }
             }
         } else {
@@ -168,11 +151,49 @@ public class CardIndicator extends View {
                     updateSelectedDotIndex(false);
                     invalidate();
                 } else {
-                    valueAnimator.setFloatValues(0, 1);
-                    valueAnimator.start();
+                    startSlideAnim(slideRight);
                 }
             }
         }
+    }
+
+    private void startSlideAnim(boolean slideRight){
+        LogUtil.e("startSlideAnim");
+        if (valueAnimator != null) {
+            if (valueAnimator.isRunning()) {
+                LogUtil.d("anim is running");
+                valueAnimator.removeAllListeners();
+                valueAnimator.cancel();
+                updateDotIndex(slideRight);
+            }
+            valueAnimator = null;
+        }
+        this.slideRight = slideRight;
+        valueAnimator = ValueAnimator.ofFloat(1).setDuration(200);
+        if (slideRight) {
+            valueAnimator.setFloatValues(0, -1);
+        }else{
+            valueAnimator.setFloatValues(0, 1);
+        }
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                animatedValue = (float) animation.getAnimatedValue();
+                invalidate();
+            }
+        });
+        valueAnimator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                LogUtil.w("onEnd");
+                valueAnimator = null;
+                animatedValue = 0f;
+                updateDotIndex(slideRight);
+                invalidate();
+            }
+        });
+        valueAnimator.start();
     }
 
     /**
