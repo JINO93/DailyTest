@@ -5,20 +5,16 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.annotation.TargetApi;
 import android.os.Build;
+import android.support.annotation.Keep;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewConfiguration;
 
-
-import com.example.administrator.test.util.LogUtil;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 
 /**
@@ -26,6 +22,7 @@ import java.util.ArrayList;
  * github: https://github.com/DingMouRen
  * email: naildingmouren@gmail.com
  */
+@Keep
 public class CardStackLayoutManager extends RecyclerView.LayoutManager {
     private boolean mHasChild = false;
     private int mItemViewWidth;

@@ -83,6 +83,16 @@
 }
 #----------------------------------------------------------------------------
 
+#-----@Keep注解-----
+-dontskipnonpubliclibraryclassmembers
+-printconfiguration
+-keep,allowobfuscation @interface android.support.annotation.Keep
+
+-keep @android.support.annotation.Keep class *
+-keepclassmembers class * {
+    @android.support.annotation.Keep *;
+}
+
 -keep class io.flutter.** {*;}
 -dontwarn io.flutter.**
 
