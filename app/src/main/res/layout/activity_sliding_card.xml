@@ -11,8 +11,8 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_card"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_height="74dp"
+         />
 
     <com.example.administrator.test.view.CardIndicator
         android:layout_marginTop="20dp"
@@ -39,5 +39,31 @@
             android:layout_marginLeft="20dp"
             android:text="Right" />
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:background="#f00"
+                android:layout_width="match_parent"
+                android:layout_height="500dp"/>
+
+            <View
+                android:background="#0f0"
+                android:layout_width="match_parent"
+                android:layout_height="500dp"/>
+        </LinearLayout>
+    </ScrollView>
+    </RelativeLayout>
 
 </LinearLayout>

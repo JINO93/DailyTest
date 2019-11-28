@@ -76,18 +76,20 @@ public class CardStackLayoutManager extends RecyclerView.LayoutManager {
         view.setOnFlingListener(mOnFlingListener);
     }
 
+    int pointerId = 0;
+
     private View.OnTouchListener mTouchListener = new View.OnTouchListener() {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
+//            if (event.getAction() == MotionEvent.ACTION_POINTER_DOWN || event.getAction() == MotionEvent.ACTION_POINTER_UP) {
+//                return true;
+//            }
             mVelocityTracker.addMovement(event);
-            int pointerId = 0;
-            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            if (event.getAction() == MotionEvent.ACTION_DOWN /*|| event.getAction() == MotionEvent.ACTION_POINTER_DOWN*/) {
                 if (animator != null && animator.isRunning())
                     animator.cancel();
-                pointerId = event.getPointerId(0);
-
-            }
-            if (event.getAction() == MotionEvent.ACTION_UP) {
+                pointerId = event.getPointerId(event.getActionIndex());
+            }else if (event.getAction() == MotionEvent.ACTION_UP /*|| event.getAction() == MotionEvent.ACTION_POINTER_UP*/) {
                 if (v.isPressed()) v.performClick();
                 mVelocityTracker.computeCurrentVelocity(1000, 14000);
                 float xVelocity = mVelocityTracker.getXVelocity(pointerId);
@@ -212,7 +214,8 @@ public class CardStackLayoutManager extends RecyclerView.LayoutManager {
     public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
         this.recycler = recycler;
         if (state.getItemCount() == 0 || state.isPreLayout()) return;
-        removeAndRecycleAllViews(recycler);
+        //如果调用removeAndRecycleAllViews会导致item不断调用onBindViewHolder的问题
+        detachAndScrapAttachedViews(recycler);
         if (!mHasChild) {
 //            mItemViewHeight = getVerticalSpace();
 //            mItemViewWidth = (int) (mItemViewHeight / mItemHeightWidthRatio);

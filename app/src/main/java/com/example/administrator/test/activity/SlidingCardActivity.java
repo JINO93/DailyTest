@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.administrator.test.MyApplication;
@@ -36,10 +37,11 @@ public class SlidingCardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sliding_card);
         rvCard = findViewById(R.id.rv_card);
         mAdapter = new MyAdapter();
-        mAdapter.setHasStableIds(true);
+//        mAdapter.setHasStableIds(true);
+        rvCard.setItemAnimator(null);
         rvCard.setAdapter(mAdapter);
         CardStackLayoutManager cardStackLayoutManager = new CardStackLayoutManager(0.8f, true,
-                ViewUtils.dipToPx(this, 20), 3);
+                ViewUtils.dipToPx(this, 20), 2);
         rvCard.setLayoutManager(cardStackLayoutManager);
         rvCard.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -108,7 +110,8 @@ public class SlidingCardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 //                cardIndicator.slide(false);
-                rvCard.scrollToPosition(--curPos);
+//                rvCard.scrollToPosition(--curPos);
+                mAdapter.notifyDataSetChanged();
             }
         });
         findViewById(R.id.btn_right).setOnClickListener(new View.OnClickListener() {
@@ -125,7 +128,7 @@ public class SlidingCardActivity extends AppCompatActivity {
     private void fetchData(boolean refresh) {
         ArrayList<CardData> items = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            CardData guideRecordCardData = new CardData("title " + i,R.mipmap.ic_launcher);
+            CardData guideRecordCardData = new CardData("title " + i,"https://www.baidu.com/img/baidu_jgylogo3.gif");
             items.add(guideRecordCardData);
         }
         if (refresh) {
@@ -162,15 +165,16 @@ public class SlidingCardActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(final ViewHolder holder, final int position) {
+            holder.setData(position);
             CardData cardData = cardDataList.get(position);
             Glide.with(MyApplication.getContext()).load(cardData.imgRes).into(holder.imgBg);
             holder.tvTitle.setText(cardData.title);
-            holder.imgBg.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                }
-            });
+//            holder.imgBg.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//
+//                }
+//            });
         }
 
         @Override
@@ -187,20 +191,42 @@ public class SlidingCardActivity extends AppCompatActivity {
             ImageView imgBg;
             TextView tvTitle;
             TextView tvBottom;
+            private int mPosition;
 
             public ViewHolder(View itemView) {
                 super(itemView);
+//                ButterKnife.bind(this, itemView);
                 imgBg = itemView.findViewById(R.id.iv_cover);
                 tvTitle = itemView.findViewById(R.id.tv_card_title);
+            }
+
+//            @OnClick(R.id.iv_cover)
+//            public void onCoverClick(){
+//                Toast.makeText(getApplicationContext(),"click cover:"+mPosition,Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @OnClick(R.id.iv_cover)
+//            public void onTitleClick(){
+//                Toast.makeText(getApplicationContext(),"click title:"+mPosition,Toast.LENGTH_SHORT).show();
+//            }
+//
+            public void setData(int position) {
+                mPosition = position;
+                imgBg.setOnClickListener(v -> {
+                    Toast.makeText(getApplicationContext(),"click cover:"+mPosition,Toast.LENGTH_SHORT).show();
+                });
+                tvTitle.setOnClickListener(v -> {
+                    Toast.makeText(getApplicationContext(),"click title:"+mPosition,Toast.LENGTH_SHORT).show();
+                });
             }
         }
     }
 
     static class CardData {
         public String title;
-        public int imgRes;
+        public String imgRes;
 
-        public CardData(String title, int imgRes) {
+        public CardData(String title, String imgRes) {
             this.title = title;
             this.imgRes = imgRes;
         }
