@@ -2,6 +2,7 @@ package com.example.administrator.test.view.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.view.Gravity;
 import android.view.Window;
@@ -38,9 +39,9 @@ public class GuideRecordHintDialog extends Dialog {
         if (window == null) {
             return;
         }
-//        window.getDecorView().setPadding(0, 0, 0, 0);
+        window.getDecorView().setPadding(0, 0, 0, 0);
         WindowManager.LayoutParams params = window.getAttributes();
-        params.width = WindowManager.LayoutParams.WRAP_CONTENT;
+        params.width = (int) (screenWidth * 0.867f);
         params.height = WindowManager.LayoutParams.WRAP_CONTENT;
         window.setAttributes(params);
         window.setGravity(Gravity.CENTER);
