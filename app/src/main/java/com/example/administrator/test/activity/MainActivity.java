@@ -44,6 +44,7 @@ import com.example.administrator.test.util.LogUtil;
 import com.example.administrator.test.util.ViewUtils;
 import com.example.administrator.test.view.dialog.BuyVipSuccessDialog;
 import com.example.administrator.test.view.dialog.GuideRecordHintDialog;
+import com.example.administrator.test.view.dialog.HourPickDialog;
 
 import java.util.ArrayList;
 
@@ -92,6 +93,11 @@ public class MainActivity extends AppCompatActivity {
         addBtn("Flutter Test", v -> startActivity(FlutterTestActivity.class));
 
         addBtn("Guide Dialog", v -> new GuideRecordHintDialog(this).show());
+
+
+        addBtn("Hour pick Dialog", v -> new HourPickDialog(this).show());
+
+
 
         changeTextColor();
     }
