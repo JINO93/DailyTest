@@ -34,6 +34,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestBuilder;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.administrator.test.Constant;
 import com.example.administrator.test.service.ForeGroundService;
 import com.example.administrator.test.R;
@@ -42,6 +44,7 @@ import com.example.administrator.test.bean.ContributeItemData;
 import com.example.administrator.test.util.FragmentBackHelper;
 import com.example.administrator.test.util.LogUtil;
 import com.example.administrator.test.util.ViewUtils;
+import com.example.administrator.test.util.transform.GlideRoundTransform;
 import com.example.administrator.test.view.dialog.BuyVipSuccessDialog;
 import com.example.administrator.test.view.dialog.GuideRecordHintDialog;
 import com.example.administrator.test.view.dialog.HourPickDialog;
@@ -248,7 +251,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void loadBitmap(View view) {
         Glide.with(this)
-                .load("https://avatars3.githubusercontent.com/u/9490724?s=180&v=4")
+                .load("http://n.sinaimg.cn/tech/transform/785/w413h372/20191230/4ea5-imkzenp8136538.gif")
+                .placeholder(R.mipmap.ic_launcher)
+                .apply(new RequestOptions().transform(new GlideRoundTransform(ViewUtils.dipToPx(view.getContext(),8))))
                 .into(ivDisplay);
     }
 

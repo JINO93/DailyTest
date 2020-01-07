@@ -96,6 +96,7 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
 //    implementation "com.jakewharton:butterknife:$butterKnifeVersion"
 //    annotationProcessor "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
+    implementation 'com.github.hackware1993:MagicIndicator:1.5.0' //指示器
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
