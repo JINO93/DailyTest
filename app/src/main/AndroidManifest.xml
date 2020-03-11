@@ -17,8 +17,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity.FlutterTestActivity"></activity>
-        <activity android:name=".activity.SlidingCardActivity" />
+        <activity android:name=".activity.FullScreenPicActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen.EntryPoint"/>
+        <!-- activity -->
+        <activity android:name=".activity.FlutterTestActivity" />
+        <activity
+            android:name=".activity.SlidingCardActivity"
+            android:theme="@style/Theme.TransparentActivity" />
         <activity android:name=".activity.WebViewTestActivity" />
         <activity
             android:name=".activity.MainActivity"
@@ -29,8 +34,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
+        </activity> <!-- receiver -->
         <receiver android:name=".AlarmReceiver">
             <intent-filter>
                 <action android:name="com.jino.test" />
@@ -48,8 +52,7 @@
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/widget_provider" />
-        </receiver>
-
+        </receiver> <!-- service -->
         <service android:name=".service.TimeUpdateService" />
         <service
             android:name=".service.ForeGroundService"

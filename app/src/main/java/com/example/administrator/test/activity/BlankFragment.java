@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -23,6 +24,7 @@ import com.bumptech.glide.Glide;
 import com.example.administrator.test.MyApplication;
 import com.example.administrator.test.R;
 import com.example.administrator.test.view.BottomContainerSheetBehavior;
+import com.example.administrator.test.view.itemanimator.BaseItemAnimator;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,6 +37,7 @@ public class BlankFragment extends Fragment {
 
     private int mContent;
     boolean isFirstShow = true;
+    private RecyclerView rv1;
 
 
     public static BlankFragment newInstance() {
@@ -77,10 +80,12 @@ public class BlankFragment extends Fragment {
 //                if (getFragmentManager().getBackStackEntryCount() > 0) {
 //                    getFragmentManager().popBackStack();
 //                }
-                BottomContainerDialogFragment.back(BlankFragment.this);
+//                BottomContainerDialogFragment.back(BlankFragment.this);
+                rv1.getAdapter().notifyDataSetChanged();
             }
         });
-        RecyclerView rv1 = view.findViewById(R.id.rv1);
+        rv1 = view.findViewById(R.id.rv1);
+        rv1.setItemAnimator(new CustsomItemAnimator());
         RecyclerView rv2 = view.findViewById(R.id.rv2);
 
         initRecycler(rv1);
@@ -173,6 +178,7 @@ public class BlankFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(getActivity(),titles[position % titles.length] + " click",Toast.LENGTH_SHORT).show();
+                    notifyItemRemoved(position);
                 }
             });
         }
@@ -197,6 +203,25 @@ public class BlankFragment extends Fragment {
                 imgBg = itemView.findViewById(R.id.iv_cover);
                 tvTitle = itemView.findViewById(R.id.tv_card_title);
             }
+        }
+    }
+
+    class CustsomItemAnimator extends BaseItemAnimator {
+
+        @Override
+        protected void animateRemoveImpl(RecyclerView.ViewHolder holder) {
+            ViewCompat.animate(holder.itemView)
+                    .alpha(0)
+                    .setDuration(getRemoveDuration())
+                    .setInterpolator(mInterpolator)
+                    .setListener(new DefaultRemoveVpaListener(holder))
+                    .setStartDelay(getRemoveDelay(holder))
+                    .start();
+        }
+
+        @Override
+        protected void animateAddImpl(RecyclerView.ViewHolder holder) {
+
         }
     }
 }

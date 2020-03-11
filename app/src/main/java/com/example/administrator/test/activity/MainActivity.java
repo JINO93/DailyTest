@@ -48,6 +48,11 @@ import com.example.administrator.test.util.transform.GlideRoundTransform;
 import com.example.administrator.test.view.dialog.BuyVipSuccessDialog;
 import com.example.administrator.test.view.dialog.GuideRecordHintDialog;
 import com.example.administrator.test.view.dialog.HourPickDialog;
+import com.yibasan.lizhi.sdk.network.http.HttpRequest;
+import com.yibasan.lizhi.sdk.network.http.rx.RxResponseListener;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -100,9 +105,39 @@ public class MainActivity extends AppCompatActivity {
 
         addBtn("Hour pick Dialog", v -> new HourPickDialog(this).show());
 
+        addBtn("Full pic test", v -> startActivity(FullScreenPicActivity.class));
+
+
+        addBtn("test lzHttp", v -> testHttp());
 
 
         changeTextColor();
+    }
+
+    private void testHttp() {
+        HttpRequest.Builder builder = new HttpRequest.Builder();
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("name", "JINO");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        builder.contentType(HttpRequest.CONTENT_TYPE_JSON_UTF8)
+                .url("http://httpbin.org/post")
+                .method(HttpRequest.POST)
+                .stringBody(jsonObject.toString())
+                .build()
+                .newCall(new RxResponseListener<String>() {
+                    @Override
+                    public void onSuccess(String s) {
+                        LogUtil.d(s);
+                    }
+
+                    @Override
+                    public void onError(int i, String s) {
+                        LogUtil.e(s);
+                    }
+                });
     }
 
     private void changeTextColor() {
