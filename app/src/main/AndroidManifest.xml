@@ -17,9 +17,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity.FullScreenPicActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen.EntryPoint"/>
-        <!-- activity -->
+        <activity android:name=".activity.StaggeredActivity"></activity>
+        <activity
+            android:name=".activity.FullScreenPicActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen.EntryPoint" /> <!-- activity -->
         <activity android:name=".activity.FlutterTestActivity" />
         <activity
             android:name=".activity.SlidingCardActivity"

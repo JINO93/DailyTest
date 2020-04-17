@@ -14,6 +14,7 @@ import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Shader;
 import android.os.Build;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
@@ -27,6 +28,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -37,6 +39,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.administrator.test.Constant;
+import com.example.administrator.test.fragment.TestScalePicFragment;
 import com.example.administrator.test.service.ForeGroundService;
 import com.example.administrator.test.R;
 import com.example.administrator.test.adapter.ContributeItemAdapter;
@@ -50,6 +53,7 @@ import com.example.administrator.test.view.dialog.GuideRecordHintDialog;
 import com.example.administrator.test.view.dialog.HourPickDialog;
 import com.yibasan.lizhi.sdk.network.http.HttpRequest;
 import com.yibasan.lizhi.sdk.network.http.rx.RxResponseListener;
+import com.yibasan.lizhifm.sdk.platformtools.ApplicationContext;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -110,8 +114,25 @@ public class MainActivity extends AppCompatActivity {
 
         addBtn("test lzHttp", v -> testHttp());
 
+        addBtn("get ua", v -> getUA());
+
+        addBtn("test pic scale", v -> new TestScalePicFragment().show(getSupportFragmentManager(),"picScale"));
+
 
         changeTextColor();
+    }
+
+    private void getUA() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Looper.prepare();
+                WebView webView = new WebView(getApplicationContext());
+                LogUtil.e(webView.getSettings().getUserAgentString());
+                Looper.myLooper().quit();
+            }
+        }).start();
+//        int[] ts = new ArrayList<Integer>().toArray(new In[0]);
     }
 
     private void testHttp() {

@@ -20,6 +20,8 @@ public class ViewUtils {
 
     private static int mDisplayHeight;
 
+    private static int mDisplayWidth;
+
     public static int dipToPx(Context context, float dip) {
         if (context != null) {
             return roundUp(dip * context.getResources().getDisplayMetrics().density);
@@ -49,6 +51,15 @@ public class ViewUtils {
         }
         return mDisplayHeight;
     }
+
+    public static int getDisplayWeight(Context context) {
+        if (mDisplayWidth <= 0) {
+            mDisplayWidth = context.getResources().getDisplayMetrics().widthPixels;
+        }
+        return mDisplayWidth;
+    }
+
+
 
 
     public static int roundUp(float f) {
