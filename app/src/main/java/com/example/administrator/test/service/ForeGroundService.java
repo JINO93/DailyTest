@@ -94,7 +94,7 @@ public class ForeGroundService extends Service {
             notificationManager.createNotificationChannel(channel);
         }
         Notification notification = new NotificationCompat.Builder(context, channel_id)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.mipmap.ic_launcher_)
                 .setContentTitle("Foreground notification")
                 .setContentText("lalalalalalalal")
                 .setSound(null)

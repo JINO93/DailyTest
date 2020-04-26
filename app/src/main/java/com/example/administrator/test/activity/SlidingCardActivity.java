@@ -146,13 +146,13 @@ public class SlidingCardActivity extends AppCompatActivity {
 
     class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 //        private int[] imgs = {
-//                R.mipmap.ic_launcher,
-//                R.mipmap.ic_launcher,
-//                R.mipmap.ic_launcher,
-//                R.mipmap.ic_launcher,
-//                R.mipmap.ic_launcher,
-//                R.mipmap.ic_launcher,
-//                R.mipmap.ic_launcher,
+//                R.mipmap.ic_launcher_,
+//                R.mipmap.ic_launcher_,
+//                R.mipmap.ic_launcher_,
+//                R.mipmap.ic_launcher_,
+//                R.mipmap.ic_launcher_,
+//                R.mipmap.ic_launcher_,
+//                R.mipmap.ic_launcher_,
 //
 //        };
 //        String[] titles = {"Acknowl", "Belief", "Confidence", "Dreaming", "Happiness", "Confidence"};

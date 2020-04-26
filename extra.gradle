@@ -1,0 +1,70 @@
+//Properties flavorProperties = new Properties()
+//flavorProperties.load(new FileInputStream("configFlavor.properties"))
+def DIMENSION_SPLASH = "splash"
+
+def customFlavorDimensions = [DIMENSION_SPLASH]
+def customFlavor = [
+        "normal":DIMENSION_SPLASH,
+        "huawei":DIMENSION_SPLASH,
+        "oppo":DIMENSION_SPLASH,
+]
+
+def genFlavor = {
+        flavor->
+            android.productFlavors{
+                "$flavor.key"{
+                    dimension "$flavor.value"
+                }
+            }
+}
+
+android {
+//}
+    customFlavorDimensions.each {
+        flavorDimensions it
+    }
+
+    customFlavor.each{
+        flavor->genFlavor flavor
+    }
+//    productFlavors {
+////        normal {
+////            dimension "splash"
+////        }
+////
+////        huawei {
+////            dimension "splash"
+////        }
+//    }
+
+//    sourceSets{
+//        huawei{
+//            res.srcDir('../commonRes/huawei/res')
+//        }
+//    }
+
+    sourceSets {
+        productFlavors.all {flavor->
+            "$flavor.name" {
+                res.srcDir("../commonRes/${flavor.name}/res")
+            }
+        }
+    }
+
+    applicationVariants.all{ variant->
+        variant.buildType.name
+    }
+
+    println("==================================================================")
+    productFlavors.all {
+        flavor ->
+            println("create new flavor name: ${flavor.name} , belong to dimension: ${flavor.dimension}")
+//            def fName = flavor.name
+//
+//            sourceSets.add(fName {
+//                res.srcDir('../commonRes/${fName}/res')
+//            })
+    }
+    println("==================================================================")
+}
+

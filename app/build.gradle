@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply from :"../extra.gradle"
 
 def propFile = file('../signing.properties')
 def props = new Properties()

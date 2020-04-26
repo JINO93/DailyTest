@@ -229,7 +229,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.mipmap.ic_launcher_)
                 .setContentText("this is a context text....." + count++)
                 .setContentTitle("This is Title")
                 .setOnlyAlertOnce(true)
@@ -308,7 +308,7 @@ public class MainActivity extends AppCompatActivity {
     public void loadBitmap(View view) {
         Glide.with(this)
                 .load("http://n.sinaimg.cn/tech/transform/785/w413h372/20191230/4ea5-imkzenp8136538.gif")
-                .placeholder(R.mipmap.ic_launcher)
+                .placeholder(R.mipmap.ic_launcher_)
                 .apply(new RequestOptions().transform(new GlideRoundTransform(ViewUtils.dipToPx(view.getContext(),8))))
                 .into(ivDisplay);
     }
