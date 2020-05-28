@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
-apply from :"../extra.gradle"
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
+apply from: "../extra.gradle"
 
 def propFile = file('../signing.properties')
 def props = new Properties()
@@ -75,6 +77,7 @@ configurations.all {
 
 repositories {
     maven { url '../test_flutter/build/host/outputs/repo' }
+    mavenCentral()
 }
 
 
