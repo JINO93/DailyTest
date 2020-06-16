@@ -9,6 +9,12 @@ if (!propFile.exists() || !propFile.canRead()) {
     println 'signing.properties are not found!'
 }else{
     props.load(new FileInputStream(propFile))
+
+//    def prop = new Properties()
+//    prop.load(project.rootProject.file('gradle.properties').newDataInputStream())
+//    prop.setProperty("testData","false")
+//    println "test: ${props.getProperty("testData")}"
+//    prop.store(project.rootProject.file('gradle.properties').newDataOutputStream(),"")
 }
 
 android {
@@ -46,6 +52,12 @@ android {
             minifyEnabled false
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            defaultConfig{
+                minSdkVersion 21
+                resConfigs ("en","xxhdpi")
+                aaptOptions.cruncherEnabled = false
+            }
         }
     }
 
@@ -74,6 +86,18 @@ configurations.all {
         force "com.android.support:recyclerview-v7:$supportVersion"
     }
 }
+
+project.afterEvaluate { //3.1
+    android.applicationVariants.all { variant ->  //3.2
+        String variantName = variant.name.capitalize()  //3.3
+        println "$variantName"
+    }
+}
+
+//combuild {
+//    applicationName = 'com.example.administrator.test.MyApplication'
+//    isRegisterCompoAuto = true
+//}
 
 repositories {
     maven { url '../test_flutter/build/host/outputs/repo' }

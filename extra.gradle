@@ -1,3 +1,14 @@
+//apply plugin: 'com.archinamon.aspectj-ext'
+//
+//aspectj {
+//    includeAllJars false // default value
+//    //URLConnection:录播/下载,okhttp:七牛glide, webview用了js
+//    includeJar 'avenger-apm-http', 'okhttp', 'lzplatformtools-lib', 'lzvoicedownload-lib', "lzdownload-lib", "lzplayer-lib"
+//    extendClasspath false //
+//    includeAspectsFromJar 'avenger-apm-http'
+//    excludeJar 'alipay-lib'
+//    ajcArgs << '-Xlint:ignore'
+//}
 //Properties flavorProperties = new Properties()
 //flavorProperties.load(new FileInputStream("configFlavor.properties"))
 def DIMENSION_SPLASH = "splash"
