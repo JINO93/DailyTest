@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 
+import com.yibasan.lizhifm.sdk.platformtools.ApplicationContext;
+
 import io.flutter.app.FlutterApplication;
 
 /**
@@ -29,6 +31,7 @@ public class MyApplication extends FlutterApplication {
     public void onCreate() {
         super.onCreate();
         mContext = this;
+        ApplicationContext.init(this);
     }
 
 }
