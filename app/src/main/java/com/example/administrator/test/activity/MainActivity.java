@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        addBtn("Flutter Test", v -> startActivity(FlutterTestActivity.class));
+//        addBtn("Flutter Test", v -> startActivity(FlutterTestActivity.class));
 
         addBtn("Guide Dialog", v -> new GuideRecordHintDialog(this).show());
 

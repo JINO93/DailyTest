@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@android:id/background">
+<!--        <clip>-->
+            <shape>
+                <corners android:radius="19dp" />
+                <gradient
+                    android:endColor="#79c8ff"
+                    android:startColor="#79c8ff" />
+                <stroke android:color="#16594000" android:width="2dp"/>
+            </shape>
+<!--        </clip>-->
+    </item>
+
+    <item android:id="@android:id/progress">
+        <clip>
+            <scale>
+                <nine-patch android:src="@drawable/live_bg_vote_progress"/>
+            </scale>
+        </clip>
+    </item>
+</layer-list>

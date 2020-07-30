@@ -2,23 +2,19 @@ package com.example.administrator.test.view
 
 import android.graphics.Color
 import android.graphics.PointF
-import android.graphics.Rect
 import android.support.constraint.ConstraintLayout
-import android.support.v4.view.ViewCompat
-import android.support.v4.widget.ViewDragHelper
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.MotionEvent
-import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
-import android.widget.Toast
 import com.example.administrator.test.R
 import com.example.administrator.test.util.LogUtil
 import com.example.administrator.test.util.VibratorUtil
 import com.yibasan.lizhifm.sdk.platformtools.ui.ViewUtils
 import kotlin.math.abs
+import kotlin.math.sqrt
 
 /**
  * @Author: JINO
@@ -34,6 +30,8 @@ class DraggableView @JvmOverloads constructor(private val root: ViewGroup, attrs
     //    lateinit var mDragHelper: ViewDragHelper
     private var mIsDragging = false
     private val mTouchPoint = PointF()
+    private val mDownTouchPoint = PointF()
+    var canAutoFillEdge = false
 
     init {
         val imageView = ImageView(context)
@@ -74,11 +72,16 @@ class DraggableView @JvmOverloads constructor(private val root: ViewGroup, attrs
     var lastAction: Int = -1
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
-//        LogUtil.d("onTouchEvent:"+event?.action)
+        LogUtil.d("onTouchEvent:"+event?.action)
         when (event?.action) {
             MotionEvent.ACTION_DOWN -> {
                 startTime = System.currentTimeMillis()
                 mTouchPoint.apply {
+                    x = event.rawX
+                    y = event.rawY
+                }
+
+                mDownTouchPoint.apply {
                     x = event.rawX
                     y = event.rawY
                 }
@@ -130,10 +133,12 @@ class DraggableView @JvmOverloads constructor(private val root: ViewGroup, attrs
             else -> {
                 if (mIsDragging) {
                     mIsDragging = false
-                    autoFillEdge()
+                    if (canAutoFillEdge) {
+                        autoFillEdge()
+                    }
                 }
 
-                if (lastAction == MotionEvent.ACTION_DOWN) {
+                if (lastAction == MotionEvent.ACTION_DOWN || getDistance(mDownTouchPoint.x,mDownTouchPoint.y,event!!.rawX, event.rawY) < 5) {
                     mClickListener?.onClick(this)
                 }
             }
@@ -141,6 +146,12 @@ class DraggableView @JvmOverloads constructor(private val root: ViewGroup, attrs
 //        mDragHelper.processTouchEvent(event)
         lastAction = event?.action ?: -1
         return true
+    }
+
+    private fun getDistance(startX:Float,startY:Float,endX:Float,endY:Float): Double {
+        val dx = startX - endX
+        val dy = startY - endY
+        return sqrt((dx * dx + dy * dy).toDouble())
     }
 
     private fun autoFillEdge() {

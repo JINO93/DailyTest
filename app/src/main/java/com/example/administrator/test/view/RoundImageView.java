@@ -140,7 +140,7 @@ public class RoundImageView extends AppCompatImageView {
         // 绘制外圈
         if (strokeColor != 0) {
 
-            int center = getWidth() / 2;
+            float center = getWidth() / 2f;
 
             if (strokeWidthPx != 0) {
                 this.strokePaint.setStyle(Paint.Style.STROKE);
@@ -149,10 +149,8 @@ public class RoundImageView extends AppCompatImageView {
 
             this.strokePaint.setColor(strokeColor);
 
-            if (strokeWidthPx != -1) {
-                canvas.drawCircle(center, center, getWidth() / 2 - strokeWidthPx / 2, this.strokePaint);
-            } else {
-                canvas.drawCircle(center, center, getWidth() / 2, this.strokePaint);
+            if (strokeWidthPx > 0) {
+                canvas.drawCircle(center, center, center - strokeWidthPx / 2f, this.strokePaint);
             }
         }
     }

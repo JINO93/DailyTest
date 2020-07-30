@@ -54,7 +54,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
             defaultConfig{
-                minSdkVersion 21
+//                minSdkVersion 21
                 resConfigs ("en","xxhdpi")
                 aaptOptions.cruncherEnabled = false
             }

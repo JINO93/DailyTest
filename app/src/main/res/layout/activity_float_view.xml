@@ -7,19 +7,107 @@
     android:layout_height="match_parent"
     tools:context=".activity.FloatViewActivity">
 
-<!--    <com.example.administrator.test.view.DraggableView-->
-<!--        android:layout_width="100dp"-->
-<!--        android:layout_height="100dp"-->
-<!--        android:layout_marginEnd="10dp"-->
-<!--        android:layout_marginBottom="10dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintRight_toRightOf="parent"-->
-<!--        >-->
+    <!--    <com.example.administrator.test.view.DraggableView-->
+    <!--        android:layout_width="100dp"-->
+    <!--        android:layout_height="100dp"-->
+    <!--        android:layout_marginEnd="10dp"-->
+    <!--        android:layout_marginBottom="10dp"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintRight_toRightOf="parent"-->
+    <!--        >-->
 
-<!--        <ImageView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:scaleType="fitXY"-->
-<!--            android:src="@mipmap/ic_launcher" />-->
-<!--    </com.example.administrator.test.view.DraggableView>-->
+    <!--        <ImageView-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="match_parent"-->
+    <!--            android:scaleType="fitXY"-->
+    <!--            android:src="@mipmap/ic_launcher" />-->
+    <!--    </com.example.administrator.test.view.DraggableView>-->
+
+    <com.example.administrator.test.view.VoteProgressView
+        android:id="@+id/v_vote_progress"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <com.example.administrator.test.view.VoteTeamView
+        android:id="@+id/v_vote_team"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/v_vote_progress" />
+
+    <com.example.administrator.test.view.VoteTeamView
+        android:id="@+id/v_vote_team1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/v_vote_team" />
+
+    <com.example.administrator.test.view.MaxHeightRecyclerView
+        android:id="@+id/rv_test"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/holo_purple"
+        android:minHeight="100dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/v_vote_team1"
+        app:maxHeight="200dp" />
+
+    <View
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/rv_test"
+        android:id="@+id/v_left"
+        app:layout_constraintRight_toLeftOf="@+id/tv_loading"
+        android:background="@color/color_fe5353"
+        android:layout_width="50dp"
+        android:layout_height="50dp"/>
+
+    <View
+        android:layout_marginStart="12dp"
+        app:layout_constraintLeft_toRightOf="@+id/tv_loading"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/rv_test"
+        android:id="@+id/v_right"
+        android:background="@color/color_5a955d"
+        android:layout_width="50dp"
+        android:layout_height="50dp"/>
+
+    <TextView
+        android:gravity="start"
+        app:layout_constraintTop_toTopOf="@+id/v_left"
+        app:layout_constraintBottom_toBottomOf="@+id/v_left"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:textSize="14sp"
+        android:text="投票结束"
+        android:maxLines="1"
+        android:textColor="@color/color_fe5353"
+        android:id="@+id/tv_loading"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"/>
+
+
+    <com.example.administrator.test.view.RoundImageView
+        app:strokeWidth="5dp"
+        app:strokeColor="@color/color_fe5353"
+        android:layout_marginTop="16dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@mipmap/ic_launcher_round"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/v_left" />
 </android.support.constraint.ConstraintLayout>
