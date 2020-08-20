@@ -18,7 +18,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity.FloatViewActivity"></activity>
+        <activity android:name=".activity.CanvasActivity"></activity>
+        <activity android:name=".activity.FloatViewActivity" />
         <activity android:name=".activity.StaggeredActivity" />
         <activity
             android:name=".activity.FullScreenPicActivity"
