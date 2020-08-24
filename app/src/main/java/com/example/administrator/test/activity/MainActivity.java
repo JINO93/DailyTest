@@ -8,6 +8,10 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.arch.lifecycle.Lifecycle;
+import android.arch.lifecycle.LifecycleObserver;
+import android.arch.lifecycle.OnLifecycleEvent;
+import android.arch.lifecycle.ProcessLifecycleOwner;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -120,6 +124,15 @@ public class MainActivity extends AppCompatActivity {
 
 
         changeTextColor();
+
+        ProcessLifecycleOwner.get().getLifecycle().addObserver(
+                new LifecycleObserver() {
+                    @OnLifecycleEvent(Lifecycle.Event.ON_START)
+                    public void onStart(){
+                        LogUtil.d("-----------onStart");
+                    }
+                }
+        );
     }
 
     private void getUA() {
