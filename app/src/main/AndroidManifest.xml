@@ -18,7 +18,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity.CanvasActivity"></activity>
+        <service
+            android:process=":remote"
+            android:name=".service.RemoteService"
+            android:enabled="true"
+            android:exported="true"/>
+
+        <activity android:name=".activity.BinderTestActivity" />
+        <activity android:name=".activity.CanvasActivity" />
         <activity android:name=".activity.FloatViewActivity" />
         <activity android:name=".activity.StaggeredActivity" />
         <activity
