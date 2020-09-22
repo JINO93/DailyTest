@@ -14,6 +14,7 @@ import android.arch.lifecycle.OnLifecycleEvent;
 import android.arch.lifecycle.ProcessLifecycleOwner;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Shader;
@@ -21,6 +22,7 @@ import android.os.Build;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.NotificationBuilderWithBuilderAccessor;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -36,6 +38,7 @@ import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RemoteViews;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,6 +66,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+
+import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -230,7 +235,7 @@ public class MainActivity extends AppCompatActivity {
             if (notificationManager.getNotificationChannel(CHANNEL_ID) != null) {
                 Toast.makeText(this, "channel already exist.", Toast.LENGTH_SHORT).show();
                 notificationManager.deleteNotificationChannel(CHANNEL_ID);
-                NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID, "test", NotificationManager.IMPORTANCE_MIN);
+                NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID, "test", NotificationManager.IMPORTANCE_HIGH);
                 notificationChannel.setVibrationPattern(new long[]{0});
                 notificationChannel.setSound(null, null);
                 notificationManager.createNotificationChannel(notificationChannel);
@@ -241,13 +246,31 @@ public class MainActivity extends AppCompatActivity {
                 notificationManager.createNotificationChannel(channel);
             }
         }
+
+        //设置自定义布局
+        RemoteViews normalView = new RemoteViews(getPackageName(),R.layout.view_notification_normal);
+        RemoteViews bigView = new RemoteViews(getPackageName(),R.layout.view_notification_big);
+
+        android.support.v4.media.app.NotificationCompat.MediaStyle mediaStyle = new android.support.v4.media.app.NotificationCompat.MediaStyle();
+        mediaStyle.setShowCancelButton(true);
+        mediaStyle.setShowActionsInCompactView(0,1,2);
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setColorized(true)
+                .setColor(Color.RED)
+//                .setWhen(System.currentTimeMillis())
                 .setSmallIcon(R.mipmap.ic_launcher_)
-                .setContentText("this is a context text....." + count++)
-                .setContentTitle("This is Title")
-                .setOnlyAlertOnce(true)
-                .setSound(null)
-                .setVibrate(new long[]{0})
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(),R.drawable.test))
+                .setContentTitle("Title")
+                .setContentText("I'm content")
+                .addAction(android.R.drawable.ic_media_previous,"pre",null)
+                .addAction(android.R.drawable.ic_media_play,"Play",null)
+                .addAction(android.R.drawable.ic_media_next,"next",null)
+                .setCustomContentView(normalView)
+//                .setCustomBigContentView(bigView)
+                .setCustomHeadsUpContentView(normalView)
+                .setContent(normalView)
+                .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setStyle(mediaStyle)
                 .build();
         notificationManager.notify(1, notification);
     }
