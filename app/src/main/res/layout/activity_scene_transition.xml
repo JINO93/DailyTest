@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.SceneTransitionActivity">
+
+
+    <android.support.v4.widget.Space
+        android:id="@+id/top_space"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"/>
+
+    <FrameLayout
+        android:id="@+id/container_preview"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:transitionName="scene_img"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/top_space"
+        tools:targetApi="lollipop">
+
+<!--        <com.example.administrator.test.video.XMediaView-->
+<!--            android:id="@+id/view_x_media"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"/>-->
+    </FrameLayout>
+
+</android.support.constraint.ConstraintLayout>

@@ -18,14 +18,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".activity.SceneDetailActivity"></activity>
+        <activity android:name=".activity.SceneTransitionActivity" />
+
         <service
-            android:process=":remote"
             android:name=".service.RemoteService"
             android:enabled="true"
-            android:exported="true"/>
+            android:exported="true"
+            android:process=":remote" />
 
         <activity android:name=".activity.BinderTestActivity" />
-        <activity android:name=".activity.CanvasActivity" />
+        <activity android:name=".activity.CanvasActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen.EntryPoint"/>
         <activity android:name=".activity.FloatViewActivity" />
         <activity android:name=".activity.StaggeredActivity" />
         <activity
@@ -34,7 +37,7 @@
         <activity android:name=".activity.FlutterTestActivity" />
         <activity
             android:name=".activity.SlidingCardActivity"
-            android:theme="@style/Theme.TransparentActivity" />
+            android:theme="@style/TestTheme" />
         <activity android:name=".activity.WebViewTestActivity" />
         <activity
             android:name=".activity.MainActivity"
