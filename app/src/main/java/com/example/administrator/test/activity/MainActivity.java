@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Debug.startMethodTracing("testTrace.trace");
         setContentView(R.layout.activity_main);
 //        getWindow().setFlags(
 //                WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -138,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
+        Debug.stopMethodTracing();
     }
 
     private void getUA() {

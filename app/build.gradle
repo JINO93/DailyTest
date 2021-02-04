@@ -73,6 +73,11 @@ android {
 
     }
 
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
 }
 
 def butterKnifeVersion = "9.0.0-rc1"

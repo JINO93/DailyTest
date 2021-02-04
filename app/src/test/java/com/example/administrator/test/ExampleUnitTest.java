@@ -1,8 +1,14 @@
 package com.example.administrator.test;
 
+import android.support.annotation.IntDef;
+import android.support.annotation.IntegerRes;
 import android.util.Pair;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.administrator.test.kotlinTest.IntKObj;
+import com.example.administrator.test.kotlinTest.KObj;
+import com.example.administrator.test.kotlinTest.StringKObj;
 
 import org.junit.Test;
 
@@ -19,10 +25,16 @@ import java.util.concurrent.LinkedBlockingQueue;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.ObservableSource;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
+import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
+import io.reactivex.subjects.AsyncSubject;
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
 
 import static org.junit.Assert.*;
 
@@ -32,6 +44,8 @@ import static org.junit.Assert.*;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class ExampleUnitTest {
+    private static final int MAXIMUM_CAPACITY = Integer.MAX_VALUE;
+
     @Test
     public void addition_isCorrect() {
         String n = "11";

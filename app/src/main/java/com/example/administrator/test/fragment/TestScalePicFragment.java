@@ -116,43 +116,45 @@ public class TestScalePicFragment extends DialogFragment {
         unbinder = ButterKnife.bind(this, view);
         Glide.with(getActivity())
                 .asBitmap()
-                .load(MessageFormat.format(PIC_URL,  "720","1280"))
+                .load(MessageFormat.format(PIC_URL,  "1242","2688"))
                 .into(new CustomTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                        int displayWeight = ViewUtils.getDisplayWeight(MyApplication.getContext());
-                        int displayHeight = getScreenHeight();
-                        LogUtil.d(MessageFormat.format("load pic success,pW:{0}  pH:{1}  sW:{2}  sH  {3}",
-                                resource.getWidth(),
-                                resource.getHeight(),
-                                displayWeight,
-                                displayHeight
-                        ));
-                        float radio = displayHeight*1.0f / displayWeight;
-                        if (radio > 18f/9f) {
-                            resource = getBitmapByScaleWidth(resource, displayWeight);
-                            LogUtil.d(MessageFormat.format("convert pic success,pW:{0}  pH:{1}  sW:{2}  sH  {3}",
-                                    resource.getWidth(),
-                                    resource.getHeight(),
-                                    displayWeight,
-                                    displayHeight
-                            ));
-                        }else if(radio > 16f/9f || radio < 16f/9f){
-                            resource = getZoomedBitmap(resource, displayWeight,
-                                    displayHeight);
-                            LogUtil.d(MessageFormat.format("convert pic success,pW:{0}  pH:{1}  sW:{2}  sH  {3}",
-                                    resource.getWidth(),
-                                    resource.getHeight(),
-                                    displayWeight,
-                                    displayHeight
-                            ));
-                            vBottomMask.setVisibility(View.INVISIBLE);
-                        }
-//                        Toast.makeText(getContext(),"load pic success",Toast.LENGTH_SHORT).show();
-                        ViewGroup.LayoutParams layoutParams = ivScale.getLayoutParams();
-                        layoutParams.height = resource.getHeight();
-                        ivScale.setLayoutParams(layoutParams);
-                        ivScale.setImageBitmap(resource);
+
+                        updateTextureViewSize(resource);
+//                        int displayWeight = ViewUtils.getDisplayWeight(MyApplication.getContext());
+//                        int displayHeight = getScreenHeight();
+//                        LogUtil.d(MessageFormat.format("load pic success,pW:{0}  pH:{1}  sW:{2}  sH  {3}",
+//                                resource.getWidth(),
+//                                resource.getHeight(),
+//                                displayWeight,
+//                                displayHeight
+//                        ));
+//                        float radio = displayHeight*1.0f / displayWeight;
+//                        if (radio > 18f/9f) {
+//                            resource = getBitmapByScaleWidth(resource, displayWeight);
+//                            LogUtil.d(MessageFormat.format("convert pic success,pW:{0}  pH:{1}  sW:{2}  sH  {3}",
+//                                    resource.getWidth(),
+//                                    resource.getHeight(),
+//                                    displayWeight,
+//                                    displayHeight
+//                            ));
+//                        }else if(radio > 16f/9f || radio < 16f/9f){
+//                            resource = getZoomedBitmap(resource, displayWeight,
+//                                    displayHeight);
+//                            LogUtil.d(MessageFormat.format("convert pic success,pW:{0}  pH:{1}  sW:{2}  sH  {3}",
+//                                    resource.getWidth(),
+//                                    resource.getHeight(),
+//                                    displayWeight,
+//                                    displayHeight
+//                            ));
+//                            vBottomMask.setVisibility(View.INVISIBLE);
+//                        }
+////                        Toast.makeText(getContext(),"load pic success",Toast.LENGTH_SHORT).show();
+//                        ViewGroup.LayoutParams layoutParams = ivScale.getLayoutParams();
+//                        layoutParams.height = resource.getHeight();
+//                        ivScale.setLayoutParams(layoutParams);
+//                        ivScale.setImageBitmap(resource);
                     }
 
                     @Override
@@ -183,6 +185,35 @@ public class TestScalePicFragment extends DialogFragment {
 //                    }
 //                })
 //                .into(ivScale);
+    }
+
+    public void updateTextureViewSize(Bitmap bitmap) {
+        float viewWidth = com.yibasan.lizhifm.sdk.platformtools.ui.ViewUtils.getDisplayWidth(getContext());
+        float viewHeight = com.yibasan.lizhifm.sdk.platformtools.ui.ViewUtils.getDisplayHeight(getContext());
+        viewWidth = 720;
+        viewHeight = 1520;
+        int videoWidth = bitmap.getWidth();
+        int videoHeight = bitmap.getHeight();
+
+
+        float scaleX = 1.0f;
+        if (videoWidth > viewWidth ) {
+            scaleX = videoWidth / (viewWidth*1.0f);
+        } else if (videoWidth < viewWidth ) {
+            scaleX = (viewWidth*1.0f) / videoWidth;
+        }
+        int pivotPointX =(int) (viewWidth / 2);
+        int pivotPointY= (int) (viewHeight / 2);
+//        this.videoHeight = (int) (videoHeight * scaleX);
+
+        Matrix matrix = new Matrix();
+        matrix.preTranslate((viewWidth - videoWidth) / 2, (viewHeight - videoHeight) / 2);
+        matrix.preScale(videoWidth /viewWidth, videoHeight / viewHeight);
+        matrix.postScale(scaleX, scaleX, pivotPointX, pivotPointY);
+//        setTransform(matrix);
+        Bitmap outBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+        ivScale.setImageBitmap(outBitmap);
+//        postInvalidate();
     }
 
     private int getScreenHeight(){
