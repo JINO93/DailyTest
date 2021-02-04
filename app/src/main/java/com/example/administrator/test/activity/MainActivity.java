@@ -18,15 +18,19 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Shader;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.os.Bundle;
+import android.os.Debug;
+import android.os.Environment;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationBuilderWithBuilderAccessor;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.ListPopupWindow;
 import android.text.TextPaint;
 import android.util.Log;
@@ -43,14 +47,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.administrator.test.Constant;
-import com.example.administrator.test.fragment.TestScalePicFragment;
-import com.example.administrator.test.service.ForeGroundService;
 import com.example.administrator.test.R;
 import com.example.administrator.test.adapter.ContributeItemAdapter;
 import com.example.administrator.test.bean.ContributeItemData;
+import com.example.administrator.test.fragment.TestScalePicFragment;
+import com.example.administrator.test.service.ForeGroundService;
 import com.example.administrator.test.util.FragmentBackHelper;
 import com.example.administrator.test.util.LogUtil;
 import com.example.administrator.test.util.ViewUtils;
@@ -60,7 +63,7 @@ import com.example.administrator.test.view.dialog.GuideRecordHintDialog;
 import com.example.administrator.test.view.dialog.HourPickDialog;
 import com.yibasan.lizhi.sdk.network.http.HttpRequest;
 import com.yibasan.lizhi.sdk.network.http.rx.RxResponseListener;
-import com.yibasan.lizhifm.sdk.platformtools.ApplicationContext;
+import com.yibasan.lizhifm.sdk.platformtools.executor.ThreadExecutor;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -127,6 +130,19 @@ public class MainActivity extends AppCompatActivity {
         addBtn("get ua", v -> getUA());
 
         addBtn("test pic scale", v -> new TestScalePicFragment().show(getSupportFragmentManager(),"picScale"));
+
+        addBtn("floatView",v -> startActivity(FloatViewActivity.class));
+
+        addBtn("test canvas",v->startActivity(CanvasActivity.class));
+
+
+        addBtn("binder Test",v->startActivity(BinderTestActivity.class));
+
+        addBtn("Video scene transition", v -> startActivity(SceneTransitionActivity.class));
+
+        View tvPaint = findViewById(R.id.tv_paint);
+        Drawable drawable = DrawableCompat.wrap(tvPaint.getBackground());
+        DrawableCompat.setTint(drawable,getResources().getColor(android.R.color.holo_purple));
 
 
         changeTextColor();

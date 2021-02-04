@@ -132,6 +132,7 @@ dependencies {
         transitive = true
         exclude group: 'com.android.support'
     }
+    implementation 'com.android.support:appcompat-v7:26.1.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
 //    implementation "com.jakewharton:butterknife:$butterKnifeVersion"
 //    annotationProcessor "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
@@ -142,5 +143,29 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.example.test_flutter:flutter_release:1.0@aar'
 
-    implementation 'com.yibasan.lizhifm.sdk.network:http:1.0.0'
+    implementation 'com.yibasan.lizhifm.sdk.network:http:1.0.3'
+
+    //eventbus
+    implementation 'org.greenrobot:eventbus:3.2.0'
+
+    //rxjava
+    implementation "io.reactivex.rxjava3:rxjava:3.0.0"
+
+    //butterknife
+    implementation('com.jakewharton:butterknife:9.0.0-rc1') {
+        exclude group: 'com.android.support'
+    }
+    annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0-rc1'
+
+    //Glide
+    implementation('com.github.bumptech.glide:glide:4.9.0') {
+        exclude group: 'com.android.support'
+    }
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+
+
+    implementation 'com.gyf.immersionbar:immersionbar:3.0.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    implementation 'me.drakeet.multitype:multitype:2.2.1'
 }

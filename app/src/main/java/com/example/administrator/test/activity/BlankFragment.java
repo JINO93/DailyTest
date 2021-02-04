@@ -23,8 +23,12 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.administrator.test.MyApplication;
 import com.example.administrator.test.R;
+import com.example.administrator.test.util.LogUtil;
 import com.example.administrator.test.view.BottomContainerSheetBehavior;
 import com.example.administrator.test.view.itemanimator.BaseItemAnimator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,7 +42,7 @@ public class BlankFragment extends Fragment {
     private int mContent;
     boolean isFirstShow = true;
     private RecyclerView rv1;
-
+    private List<Integer> mDatas = new ArrayList<>();
 
     public static BlankFragment newInstance() {
         BlankFragment fragment = new BlankFragment();
@@ -81,12 +85,18 @@ public class BlankFragment extends Fragment {
 //                    getFragmentManager().popBackStack();
 //                }
 //                BottomContainerDialogFragment.back(BlankFragment.this);
-                rv1.getAdapter().notifyDataSetChanged();
+                mDatas.add(5,100);
+                MyAdapter adapter = (MyAdapter) rv1.getAdapter();
+//                adapter.isShow = true;
+                adapter.notifyItemInserted(5);
             }
         });
         rv1 = view.findViewById(R.id.rv1);
         rv1.setItemAnimator(new CustsomItemAnimator());
         RecyclerView rv2 = view.findViewById(R.id.rv2);
+        for (int i = 0; i < 20; i++) {
+            mDatas.add(i + 1);
+        }
 
         initRecycler(rv1);
         initRecycler(rv2);
@@ -158,6 +168,8 @@ public class BlankFragment extends Fragment {
         };
         String[] titles = {"Acknowl", "Belief", "Confidence", "Dreaming", "Happiness", "Confidence"};
 
+        boolean isShow = false;
+
         @Override
         public MyAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(getContext()).inflate(R.layout.item_topic_read_card, parent, false);
@@ -165,27 +177,29 @@ public class BlankFragment extends Fragment {
         }
 
         @Override
-        public void onBindViewHolder(final MyAdapter.ViewHolder holder, final int position) {
+        public void onBindViewHolder(final MyAdapter.ViewHolder holder, int position) {
+            LogUtil.e("onBindViewHolder :" + position);
             Glide.with(MyApplication.getContext()).load(imgs[position % imgs.length]).into(holder.imgBg);
-            holder.tvTitle.setText(titles[position % titles.length]);
+            holder.tvTitle.setText(mDatas.get(position) + " " + titles[position % titles.length]);
             holder.imgBg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+//                    Toast.makeText(v.getContext(),mDatas.get(position),Toast.LENGTH_SHORT).show();
                 }
             });
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getActivity(),titles[position % titles.length] + " click",Toast.LENGTH_SHORT).show();
-                    notifyItemRemoved(position);
+                    Toast.makeText(getActivity(),position+ " click",Toast.LENGTH_SHORT).show();
+//                    notifyItemRemoved(position);
                 }
             });
+//            holder.itemView.setVisibility(position == 0 && !isShow ? View.GONE : View.VISIBLE);
         }
 
         @Override
         public int getItemCount() {
-            return 50;
+            return mDatas.size();
         }
 
         @Override

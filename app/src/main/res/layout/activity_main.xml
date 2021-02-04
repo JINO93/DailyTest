@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -18,6 +19,19 @@
             android:orientation="vertical"
             android:padding="8dp"
             tools:context=".activity.MainActivity">
+
+            <TextView
+                android:id="@+id/tv_paint"
+                android:text="测试画笔渐变\n1235123513241235"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:paddingStart="6dp"
+                android:paddingEnd="6dp"
+                android:paddingBottom="6dp"
+                android:background="@drawable/bg_padding_test"
+                android:layout_marginTop="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
             <Button
                 android:layout_width="wrap_content"
@@ -164,14 +178,7 @@
                     android:layout_height="5dp"/>
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/tv_paint"
-                android:text="测试画笔渐变"
-                android:gravity="center"
-                android:padding="16dp"
-                android:textSize="18sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+
 
             <com.example.administrator.test.view.OvalLine
                 android:layout_width="100dp"
